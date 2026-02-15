@@ -1,0 +1,25 @@
+# =============================
+# ICE 平台公共配置 生产环境
+# =============================
+
+# 项目相关配置
+ice:
+  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  profile: /home/ice/uploadPath
+# 日志配置
+logging:
+  level:
+    com.ice: info
+    org.springframework: warn
+# application-prod.yml
+spring:
+  datasource:
+    master:
+      url: jdbc:mysql://192.168.1.10:3306/ice_prod?useUnicode=true...
+      username: prod_user
+      password: prod_password_123
+    slave:
+      enabled: true   # 生产环境开启从库
+      url: jdbc:mysql://192.168.1.11:3306/ice_prod_slave?useUnicode=true...
+      username: slave_user
+      password: slave_password_456

@@ -1,0 +1,78 @@
+# =============================
+# ICE 平台公共配置 测试环境
+# =============================
+
+# 项目相关配置
+ice:
+  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  profile: /home/ice/uploadPath
+
+# 日志配置
+logging:
+  file:
+    path: /Users/mashaohui/logs  # Mac 本地路径 ✅
+  level:
+    com.ice: debug               # 你的项目包名
+    org.springframework: warn
+    org.mybatis: warn
+    com.alibaba.druid: info
+# 健康检查端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+        exclude: env,beans  # 可选：排除不需要的端点
+      base-path: /actuator  # 可选：默认就是/actuator
+  endpoint:
+    health:
+      show-details: always  # 显示健康详情
+      show-components: always  # 显示组件状态
+      probes:
+        enabled: true  # 开启k8s探针支持
+
+# Spring配置
+spring:
+  datasource:
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:mysql://localhost:3306/ice_platform?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: root
+        password: password
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
+      thirdparty:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
+  data:
+    # redis 配置
+    redis:
+      # 地址
+      host: localhost
+      # 端口，默认为6379
+      port: 6379
+      # 数据库索引
+      database: 0
+      # 密码
+      password:
+      # 连接超时时间
+      timeout: 10s
+      lettuce:
+        pool:
+          # 连接池中的最小空闲连接
+          min-idle: 0
+          # 连接池中的最大空闲连接
+          max-idle: 8
+          # 连接池的最大数据库连接数
+          max-active: 8
+          # #连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1ms
